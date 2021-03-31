@@ -2,8 +2,6 @@ import { useMutation, useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 
-import { useState } from 'react';
-import Router from 'next/router';
 import useForm from '../lib/useForm';
 
 import Form from './styles/Form';
