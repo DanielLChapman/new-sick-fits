@@ -28,6 +28,7 @@ function DeleteProduct({ id, children }) {
       type="button"
       disabled={loading}
       onClick={() => {
+        // eslint-disable-next-line no-restricted-globals
         if (confirm('Are you sure you want to delete this item?')) {
           // go ahead and delete it
           console.log('DELETING');
