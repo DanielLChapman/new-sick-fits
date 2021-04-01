@@ -47,7 +47,7 @@ function SignUp(props) {
       <h2>Sign Up For An Account</h2>
       <Error error={error} />
       <fieldset>
-        {data.createUser && (
+        {data?.createUser && (
           <p>
             Signed Up With {data.createUser.email} - Please Go Ahead And Sign In
           </p>
