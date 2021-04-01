@@ -25,7 +25,7 @@ function SignOut() {
         });
       }}
     >
-      SignOut
+      Sign Out
     </button>
   );
 }

@@ -5,50 +5,64 @@ import useForm from '../lib/useForm';
 import { CURRENT_USER_QUERY } from './User';
 import Error from './ErrorMessage';
 
-const SIGNIN_MUTATION = gql`
-  mutation SIGNIN_MUTATION($email: String!, $password: String!) {
-    authenticateUserWithPassword(email: $email, password: $password) {
-      ... on UserAuthenticationWithPasswordSuccess {
-        item {
-          id
-          email
-          name
-        }
-      }
-      ... on UserAuthenticationWithPasswordFailure {
-        code
-        message
-      }
+const SIGNUP_MUTATION = gql`
+  mutation SIGNUP_MUTATION(
+    $name: String!
+    $email: String!
+    $password: String!
+  ) {
+    createUser(data: { name: $name, email: $email, password: $password }) {
+      id
+      name
+      email
     }
   }
 `;
 
-function SignIn(props) {
+function SignUp(props) {
   const { inputs, handleChange, resetForm } = useForm({
     email: '',
     password: '',
+    name: '',
   });
-  const [signin, { data, loading }] = useMutation(SIGNIN_MUTATION, {
+  const [signup, { data, error, loading }] = useMutation(SIGNUP_MUTATION, {
     variables: inputs,
-    refetchQueries: [{ query: CURRENT_USER_QUERY }],
+    // refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
     // send email and password to graphql api
-    const res = await signin();
+    const res = await signup().catch(console.error);
     console.log(res);
     resetForm();
   };
-  const error =
+  /* const error =
     data?.authenticateUserWithPassword.__typename ===
     'UserAuthenticationWithPasswordFailure'
       ? data?.authenticateUserWithPassword
-      : undefined;
+      : undefined; */
+
   return (
     <Form method="POST" onSubmit={handleSubmit}>
-      <h2>Sign Into Your Account</h2>
+      <h2>Sign Up For An Account</h2>
       <Error error={error} />
       <fieldset>
+        {data.createUser && (
+          <p>
+            Signed Up With {data.createUser.email} - Please Go Ahead And Sign In
+          </p>
+        )}
+        <label htmlFor="name">
+          Name
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            autoComplete="name"
+            value={inputs.name}
+            onChange={handleChange}
+          />
+        </label>
         <label htmlFor="email">
           Email
           <input
@@ -77,4 +91,4 @@ function SignIn(props) {
   );
 }
 
-export default SignIn;
+export default SignUp;
