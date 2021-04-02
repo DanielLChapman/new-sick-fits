@@ -74,7 +74,7 @@ function Reset({ token }) {
             onChange={handleChange}
           />
         </label>
-        <button type="submit">Request Reset!</button>
+        <button type="submit">Reset!</button>
       </fieldset>
     </Form>
   );

@@ -36,7 +36,7 @@ function RequestReset(props) {
     <Form method="POST" onSubmit={handleSubmit}>
       <h2>Sign Up For An Account</h2>
       <Error error={error} />
-      <fieldset>
+      <fieldset aria-busy={loading} disabled={loading}>
         {data?.sendUserPasswordResetLink === null && (
           <p>Succes! Check your email for a link!</p>
         )}
