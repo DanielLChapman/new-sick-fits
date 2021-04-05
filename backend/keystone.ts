@@ -8,6 +8,7 @@ import { User } from './schemas/User';
 import { Product } from './schemas/Product';
 import { ProductImage } from './schemas/ProductImage';
 import { insertSeedData } from './seed-data';
+import { CartItem } from './schemas/CartItem';
 import { sendPasswordResetEmail } from './lib/mail';
 
 const databaseURL =
@@ -55,7 +56,8 @@ export default withAuth(config({
         // schema items go in here
         User,
         Product,
-        ProductImage
+        ProductImage,
+        CartItem,
     }),
     ui: {
         // show the UI only for the people who pass this test
