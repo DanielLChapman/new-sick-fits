@@ -22,7 +22,7 @@ const CartItemStyles = styled.li`
   }
 `;
 
-export const CartItem = ({ cartItem }) => {
+function CartItem({ cartItem }) {
   const { product } = cartItem;
   if (!product) return null;
   return (
@@ -35,7 +35,7 @@ export const CartItem = ({ cartItem }) => {
       <div>
         <h3>{product.name}</h3>
         <p>
-          {formatMoney(product.price * cartItem.quantity)} -
+          {formatMoney(product.price * cartItem.quantity)}-
           <em>
             {cartItem.quantity} &times; {formatMoney(product.price)} each
           </em>
@@ -43,7 +43,7 @@ export const CartItem = ({ cartItem }) => {
       </div>
     </CartItemStyles>
   );
-};
+}
 
 function Cart(props) {
   const me = useUser();
