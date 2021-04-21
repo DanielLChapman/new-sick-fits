@@ -15,7 +15,7 @@ async function addToCart(
     if (!sesh.itemId) {
         throw new Error('You must be logged in to do this!');
     }
-    // 2. Query the current users cart
+    // 2. Query the current users  cart
     const allCartItems = await context.lists.CartItem.findMany({
         where: { user: { id: sesh.itemId }, product: { id: productId } },
         resolveFields: 'id,quantity',
