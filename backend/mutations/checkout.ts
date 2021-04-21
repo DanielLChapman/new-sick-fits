@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -82,8 +83,36 @@ async function checkout(
 
     console.log(charge);
     // convert cart items to order items
+    const orderItems = cartItems.map((cartItem) => {
+        const orderItem = {
+            name: cartItem.product.name,
+            description: cartItem.product.description,
+            price: cartItem.product.price,
+            quantity: cartItem.quantity,
+            photo: {
+                connect: {
+                    id: cartItem.product.photo.id,
+                },
+            },
+        };
+        return orderItem;
+    });
 
     // create the order and return it
+    const order = await context.lists.Order.createOne({
+        data: {
+            total: charge.amount,
+            charge: charge.id,
+            items: { create: orderItems },
+            user: { connect: { id: userId } },
+        },
+    });
+
+    // clean up any old cart items
+    const cartItemIds = cartItems.map((cartItem) => cartItem.id);
+    await context.lists.CartItem.deleteMany({ ids: cartItemIds });
+
+    return order;
 }
 
 export default checkout;
