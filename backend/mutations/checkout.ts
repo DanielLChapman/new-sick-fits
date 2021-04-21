@@ -80,6 +80,7 @@ async function checkout(
             throw new Error(err.message);
         });
 
+    console.log(charge);
     // convert cart items to order items
 
     // create the order and return it
