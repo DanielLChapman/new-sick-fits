@@ -9,6 +9,8 @@ import { Product } from './schemas/Product';
 import { ProductImage } from './schemas/ProductImage';
 import { insertSeedData } from './seed-data';
 import { CartItem } from './schemas/CartItem';
+import { OrderItem } from './schemas/OrderItem';
+import { Order } from './schemas/Order';
 import { sendPasswordResetEmail } from './lib/mail';
 import { extendGraphqlSchema } from './mutations';
 
@@ -60,10 +62,13 @@ export default withAuth(config({
         Product,
         ProductImage,
         CartItem,
+        OrderItem,
+        Order,
     }),
     extendGraphqlSchema,
     ui: {
         // show the UI only for the people who pass this test
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         isAccessAllowed: ({ session }) => !!session?.data,
     },
     session: withItemData(statelessSessions(sessionConfig), {
