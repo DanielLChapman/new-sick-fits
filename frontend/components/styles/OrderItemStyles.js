@@ -4,6 +4,7 @@ const OrderItemStyles = styled.li`
   box-shadow: var(--bs);
   list-style: none;
   padding: 2rem;
+  cursor: pointer;
   border: 1px solid var(--offWhite);
   h2 {
     border-bottom: 2px solid red;
