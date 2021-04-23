@@ -57,8 +57,6 @@ async function checkout(
         `,
     });
 
-    console.dir(user, { depth: null });
-
     const cartItems = user.cart.filter((cartItem) => cartItem.product);
     const amount = cartItems.reduce(function (
         tally: number,
@@ -67,7 +65,6 @@ async function checkout(
         return tally + cartItem.quantity * cartItem.product.price;
     },
         0);
-    console.log(amount);
     // create charge with stripe library
     const charge = await stripeConfig.paymentIntents
         .create({
@@ -81,7 +78,6 @@ async function checkout(
             throw new Error(err.message);
         });
 
-    console.log(charge);
     // convert cart items to order items
     const orderItems = cartItems.map((cartItem) => {
         const orderItem = {

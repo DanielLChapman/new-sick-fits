@@ -9,7 +9,6 @@ async function addToCart(
     { productId }: { productId: string },
     context: KeystoneContext
 ): Promise<CartItemCreateInput> {
-    console.log('ADDING TO CART!');
     // 1. Query the current user see if they are signed in
     const sesh = context.session as Session;
     if (!sesh.itemId) {
@@ -23,10 +22,6 @@ async function addToCart(
 
     const [existingCartItem] = allCartItems;
     if (existingCartItem) {
-        console.log(existingCartItem);
-        console.log(
-            `There are already ${existingCartItem.quantity}, increment by 1!`
-        );
         // 3. See if the current item is in their cart
         // 4. if itis, increment by 1
         return await context.lists.CartItem.updateOne({
