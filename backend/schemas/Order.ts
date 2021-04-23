@@ -8,9 +8,17 @@ import {
     virtual,
 } from '@keystone-next/fields';
 import formatMoney from '../lib/formatMoney';
+import { isSignedIn, permissions, rules } from '../access';
 
 export const Order = list({
     // access
+    access: {
+        create: isSignedIn,
+        read: rules.canOrder,
+        update: () => false,
+        delete: () => false,
+
+    },
     // ui
     fields: {
         total: integer(),

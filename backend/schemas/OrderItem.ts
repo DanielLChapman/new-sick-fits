@@ -1,9 +1,15 @@
 /* eslint-disable @typescript-eslint/indent */
 import { list } from '@keystone-next/keystone/schema';
 import { text, relationship, select, integer } from '@keystone-next/fields';
+import { isSignedIn, rules } from '../access';
 
 export const OrderItem = list({
-    // access
+    access: {
+        create: isSignedIn,
+        read: rules.canManageOrderItems,
+        update: () => false,
+        delete: () => false,
+    }
     // ui
     fields: {
         name: text({ isRequired: true }),
